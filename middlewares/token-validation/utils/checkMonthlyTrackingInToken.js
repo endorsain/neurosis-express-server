@@ -22,7 +22,11 @@ export const checkMonthlyTrackingInToken = async (
   } catch (error) {
     if (error.code === "auth/invalid-id-token") {
       // TODO: utilizar throwApiError()
-      throw new Error("Token invalido");
+      throwApiError({
+        message: "Invalid token",
+        statusCode: 401,
+        code: "auth/invalid_token",
+      });
     }
     const newIdToken = await renewTokens(refreshToken);
     return await verifyAndDecodedToken(newIdToken, refreshToken, currentDate);

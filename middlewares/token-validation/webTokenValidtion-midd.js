@@ -1,3 +1,4 @@
+import throwApiError from "../../utils/throwApiError.js";
 import { checkMonthlyTrackingInToken } from "./utils/checkMonthlyTrackingInToken.js";
 
 const webTokenValidationMiddleware = async (req, res, next) => {
@@ -10,11 +11,15 @@ const webTokenValidationMiddleware = async (req, res, next) => {
     const refreshToken = req.cookies[refreshtTokenKey];
     const params = await req.query;
 
-    if (!refreshToken && !idToken && !params.currentDate) {
-      //TODO: Usar throwApiError()
+    if (!refreshToken || !params.currentDate) {
       console.log("No hay tokens");
-      throw new Error("No hay tokens");
+      throwApiError({
+        message: "Missing tokens",
+        statusCode: 401,
+        code: "auth/missing_tokens",
+      });
     }
+    //TODO: Verificar si refreshToken es valido.
 
     const checkProgress = await checkMonthlyTrackingInToken(
       idToken,
@@ -37,15 +42,19 @@ const webTokenValidationMiddleware = async (req, res, next) => {
 
     next();
   } catch (error) {
-    //TODO: Borra los cookies porque es un posible intento de hack.
-    // if(error.code === 'token invalido'){
-    //   res.clearCookie("nombre de la cookie", {
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: "None",
-    //   });
-    // }
     console.log("salio mal", error);
+    if (error.code === "auth/invalid_token") {
+      res.clearCookie(process.env.KEY_REFRESHTOKEN, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
+      res.clearCookie(process.env.KEY_IDTOKEN, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+      });
+    }
     next(error);
   }
 };
