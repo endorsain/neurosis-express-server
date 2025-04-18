@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 export const metaSchema = new mongoose.Schema(
   {
     created_at: {
-      type: Date,
+      type: Number,
       default: () => Date.now(),
     },
     updated_at: {
-      type: Date,
+      type: Number,
       default: () => Date.now(),
     },
   },

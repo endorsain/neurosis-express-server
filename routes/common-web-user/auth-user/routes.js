@@ -1,7 +1,13 @@
 import { Router } from "express";
 import { sendSuccessResponse } from "../../../utils/index.js";
+import activitiesRouter from "./activities/routes.js";
+import testRouter from "./test/routes.js";
 
 const authUserRouter = Router();
+
+authUserRouter.use("/activities", activitiesRouter);
+
+authUserRouter.use("/test", testRouter);
 
 authUserRouter.get("/get-all", async (req, res, next) => {
   try {

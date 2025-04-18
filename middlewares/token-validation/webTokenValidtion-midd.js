@@ -11,7 +11,10 @@ const webTokenValidationMiddleware = async (req, res, next) => {
     const refreshToken = req.cookies[refreshtTokenKey];
     const params = await req.query;
 
-    if (!refreshToken || !params.currentDate) {
+    // console.log("---idtoken: ", idToken);
+    // console.log("---refreshToken: ", refreshToken);
+
+    if (!refreshToken || refreshToken === undefined || !params.currentDate) {
       console.log("No hay tokens");
       throwApiError({
         message: "Missing tokens",
@@ -20,6 +23,8 @@ const webTokenValidationMiddleware = async (req, res, next) => {
       });
     }
     //TODO: Verificar si refreshToken es valido.
+    // - Firebase no tiene forma de verificar el refreshToken.
+    // - Guardar el refreshToken en la base de datos para verificar la validez.
 
     const checkProgress = await checkMonthlyTrackingInToken(
       idToken,
@@ -43,18 +48,16 @@ const webTokenValidationMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("salio mal", error);
-    if (error.code === "auth/invalid_token") {
-      res.clearCookie(process.env.KEY_REFRESHTOKEN, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-      });
-      res.clearCookie(process.env.KEY_IDTOKEN, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-      });
-    }
+    res.clearCookie(process.env.KEY_REFRESHTOKEN, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
+    res.clearCookie(process.env.KEY_IDTOKEN, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    });
     next(error);
   }
 };

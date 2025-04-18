@@ -1,5 +1,4 @@
-import { metaSchema } from "./meta.schema.js";
-//import { activitySchema } from "./activity.schema.js";
+import { metaSchema } from "../common/index.js";
 import mongoose from "mongoose";
 
 const monthlyTrackingSchema = new mongoose.Schema(
@@ -10,10 +9,6 @@ const monthlyTrackingSchema = new mongoose.Schema(
       required: true,
       ref: "users", //referencia con la coleccion 'users'
     },
-    // progress_tracking: {
-    //   type: [activitySchema],
-    //   default: [],
-    // },
     meta: { type: metaSchema, default: {} },
   },
   { timestamps: false }

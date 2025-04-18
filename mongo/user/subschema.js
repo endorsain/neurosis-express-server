@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const authSchema = new mongoose.Schema(
+const authSchema = new mongoose.Schema(
   {
     firebase_id: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
@@ -8,7 +8,7 @@ export const authSchema = new mongoose.Schema(
   { _id: false }
 );
 
-export const profileSchema = new mongoose.Schema(
+const profileSchema = new mongoose.Schema(
   {
     username: {
       type: String,
