@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { metaSchema } from "../common/index.js";
 
 const authSchema = new mongoose.Schema(
   {
@@ -38,20 +39,17 @@ export const userDataSchema = new mongoose.Schema(
   { _id: false }
 );
 
-export const metaSchema = new mongoose.Schema(
+export const userMetaSchema = new mongoose.Schema(
   {
     last_login: {
       type: Number,
       default: null,
     },
-    created_at: {
-      type: Number,
-      default: () => Date.now(),
-    },
-    updated_at: {
-      type: Number,
-      default: () => Date.now(),
-    },
   },
   { _id: false }
 );
+
+export const combinedMetaSchema = new mongoose.Schema({
+  ...metaSchema.obj,
+  ...userMetaSchema.obj,
+});

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { metaSchema } from "../common/index.js";
 
-const activityMetaSchema = mongoose.Schema(
+const activityMetaSchema = new mongoose.Schema(
   {
     is_active: {
       type: Boolean,
@@ -11,7 +11,7 @@ const activityMetaSchema = mongoose.Schema(
   { _id: false }
 );
 
-export const combinedMetaSchema = mongoose.Schema(
+export const combinedMetaSchema = new mongoose.Schema(
   {
     ...metaSchema.obj,
     ...activityMetaSchema.obj,

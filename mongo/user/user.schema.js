@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { metaSchema, userDataSchema } from "./subschema.js";
+import { combinedMetaSchema, userDataSchema } from "./subschema.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     meta: {
-      type: metaSchema,
+      type: combinedMetaSchema,
       default: {},
     },
   },

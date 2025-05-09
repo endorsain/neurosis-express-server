@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import { weeklySchema } from "./weekly.schema.js";
-import { combinedMetaSchema } from "./subschema.js";
-// import { metaSchema } from "../common/index.js";
+import { combinedMetaSchema } from "./subschemas.js";
 
 const activitySchema = new mongoose.Schema(
   {
