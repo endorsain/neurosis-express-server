@@ -51,6 +51,46 @@ let monthly_activity_tracking = {
       title: "titulo de actividad",
     },
   ],
+  // TODO: registrar:
+  // tiempo total de concentracion por cada dia
+  // tiempo total de descando por dia
+  // tiempo total de conc. por mes
+  // tiempo total de desc. por mes
+  day_tracking: [
+    {
+      day, // dia del mes, Number
+      activity_tracking: [
+        {
+          // intento representar una actividad desconocida "unknown"
+          activity, // podria ser 'false'(maqueta)
+          time_start, //momento en que empieza
+          time_end, //momento en que termina
+        },
+        {
+          title, //nombre de la actividad
+          time_tracking: [
+            {
+              focus, //valor booleano, si es true esta concentrado si es false estadescasando.
+              time_start,
+              time_end,
+            },
+          ],
+          time_start, //momento en que empieza
+          time_end, //momento en que termina
+          total_time,
+        },
+      ],
+      time_start,
+      time_end,
+      total_time,
+      time: {
+        start,
+        end,
+        total,
+      },
+    },
+  ],
+
   meta: {
     created_at: "fecha de creacion",
     updated_at: "fecha de actualizacion",
