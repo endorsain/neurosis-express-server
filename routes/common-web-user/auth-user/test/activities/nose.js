@@ -11,7 +11,9 @@ export const weeklyProgrammingOfActiveActivity = (userId) => {
       weekly_programming: 1,
     }
   );
-
+  // .lean();
+  // '.lean()' obtiene un objeto javascript plano sin todos los metadatos.
+  // Lo mismo pasa '.toObject()' Pero esto se aplica en 'filterByCurrentDay' en weekly
   return result;
 };
 
@@ -23,4 +25,25 @@ export const getWeeklyProgrammingWihtContent = (weekly) => {
     );
   });
   return filipinas;
+};
+
+export const filterByCurrentDay = (weekly, dateNow) => {
+  const caca = weekly
+    .map((obj) => {
+      const filter = obj.weekly_programming.week.filter((obj1) => {
+        return obj1.start_day === dateNow.getDay();
+      });
+      if (filter.length > 0) {
+        return {
+          ...obj,
+          weekly_programming: {
+            ...obj.weekly_programming,
+            week: filter,
+          },
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
+  return caca;
 };
