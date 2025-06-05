@@ -2,7 +2,7 @@ import { handleNewMonthlyTracking } from "./handleNewMonthlyTracking.js";
 import { auth } from "../../../config/firebase-admin.js";
 import { renewTokens } from "./renewTokens.js";
 
-export const descomposeUnixTimestamp = (timestamps) => {
+const descomposeUnixTimestamp = (timestamps) => {
   if (!timestamps) return null;
 
   const date = new Date(timestamps);

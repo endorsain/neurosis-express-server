@@ -20,3 +20,11 @@ export const getDay = async (userData, currentDay) => {
     return day;
   } catch (error) {}
 };
+
+export const totalMonthTimeMs(timestamp){
+  
+}
+
+export const addUnknownActivity = () => {
+
+}

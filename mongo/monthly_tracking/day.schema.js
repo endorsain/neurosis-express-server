@@ -63,11 +63,24 @@ export const daySchema = new mongoose.Schema(
       required: true,
     },
     activities_tracking: [activitySchema],
-    start_time: {
+    // Eliminar start_time y end_time, no tienen sentido
+    // start_time: {
+    //   type: Number,
+    //   required: true,
+    // },
+    // end_time: {
+    //   type: Number,
+    //   required: true,
+    // },
+    // total_time representa el tiempo total de concentracion
+    // que acumula todas las actividades.
+    // Podria poner total_focus_time y total_break_time.
+    // Se entiende que es el total de todas las actividades
+    focus_time: {
       type: Number,
       required: true,
     },
-    end_time: {
+    break_time: {
       type: Number,
       required: true,
     },
